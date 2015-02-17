@@ -5,6 +5,15 @@ Plugin URI: https://github.com/chtipepere/jigoshopAtosPlugin
 Description: Extends Jigoshop with Atos SIPS gateway (French bank).
 Version: 1.0
 Author: Chtipepere
+
+http://blog.manit4c.com/2009/12/18/installation-dun-paiement-atos-sips-tutoriel-premiere-partie/
+https://github.com/jigoshop/jigoshop/blob/master/gateways/worldpay.php
+https://github.com/chtipepere/jigoshopAtosPlugin
+http://thomasdt.com/woocommerce/
+http://jigoshop.local/wp-admin/plugins.php?error=true&charsout=2766&plugin=jigoshopAtosPlugin%2Findex.php&plugin_status=all&paged=1&s&_error_nonce=54a3c7100b
+http://jigoshop.local/wp-admin/admin.php?page=jigoshop_settings&tab=payment-gateways
+https://www.jigoshop.com/documentation/jigoshop-amazon-simple-pay-gateway/
+
 */
 
 
@@ -22,29 +31,33 @@ add_action( 'plugins_loaded', 'jigoshop_atos_init', 0 );
 
 function jigoshop_atos_init() {
 
-	if ( ! class_exists( 'WC_Payment_Gateway' ) ) {
+	if ( ! class_exists( 'jigoshop_payment_gateway' ) ) {
 		return;
 	}
 
 	/**
 	 * Localisation
 	 */
-	load_plugin_textdomain( 'wc-atos-ccave', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+	//load_plugin_textdomain( 'wc-atos-ccave', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
 	/**
 	 * Gateway class
 	 */
-	class Jigoshop_atos extends WC_Payment_Gateway {
+	class Jigoshop_atos extends jigoshop_payment_gateway {
 		protected $msg = array();
 
 		public function __construct() {
+
+			parent::__construct();
+			$options = Jigoshop_Base::get_options();
+
 			// Go wild in here
 			$this->id           = 'atos';
 			$this->method_title = __( 'Atos', 'atos' );
 			$this->icon         = WP_PLUGIN_URL . '/' . plugin_basename( dirname( __FILE__ ) ) . '/images/logo.gif';
 			$this->has_fields   = false;
-			$this->init_form_fields();
-			$this->init_settings();
+			//$this->init_form_fields();
+			//$this->init_settings();
 			$this->title                  = $this->settings['title'];
 			$this->description            = $this->settings['description'];
 			$this->merchantid             = $this->settings['merchantid'];
@@ -59,13 +72,125 @@ function jigoshop_atos_init() {
 			$this->advert                 = $this->settings['advert'];
 			$this->msg['message']         = '';
 			$this->msg['class']           = '';
-			add_action( 'valid-atos-request', array( &$this, 'successful_request' ) );
-			add_action( 'woocommerce_update_options_payment_gateways', array( &$this, 'process_admin_options' ) );
-			add_action( 'woocommerce_receipt_atos', array( &$this, 'receipt_page' ) );
-			add_action( 'woocommerce_thankyou_atos', array( &$this, 'thankyou_page' ) );
+
+			// add_action( 'valid-atos-request', array( &$this, 'successful_request' ) );
+			// add_action( 'woocommerce_update_options_payment_gateways', array( &$this, 'process_admin_options' ) );
+			// add_action( 'woocommerce_receipt_atos', array( &$this, 'receipt_page' ) );
+			// add_action( 'woocommerce_thankyou_atos', array( &$this, 'thankyou_page' ) );
+
+			//add_action('jigoshop_settings_scripts', array($this, 'admin_scripts'));
+			add_action('receipt_atos', array($this, 'receipt_page'));
+			add_action('valid-atos-request', array($this, 'successful_request'));
 		}
 
-		function init_form_fields() {
+		/**
+		 * Default Option settings for WordPress Settings API using the Jigoshop_Options class
+		 * These will be installed on the Jigoshop_Options 'Payment Gateways' tab by the parent class 'jigoshop_payment_gateway'
+		 */
+		protected function get_default_options(){
+			$defaults = array();
+			// Define the Section name for the Jigoshop_Options
+			$defaults[] = array(
+				'name' => sprintf(__('Atos Standard %s', 'jigoshop'), '<img style="vertical-align:middle;margin-top:-4px;margin-left:10px;" src="' . WP_PLUGIN_URL . '/' . plugin_basename( dirname( __FILE__ ) ) . '/images/logo.gif" alt="Atos">'),
+				'type' => 'title',
+				'desc' => __('Atos works by sending the user to your bank to enter their payment information.', 'jigoshop')
+			);
+			// List each option in order of appearance with details
+			$defaults[] = array(
+				'name' => __('Enable Atos', 'jigoshop'),
+				'desc' => '',
+				'tip' => '',
+				'id' => 'jigoshop_atos_enabled',
+				'std' => 'yes',
+				'type' => 'checkbox',
+				'choices' => array(
+					'no' => __('No', 'jigoshop'),
+					'yes' => __('Yes', 'jigoshop')
+				)
+			);
+			$defaults[] = array(
+				'name' => __('Method Title', 'jigoshop'),
+				'desc' => '',
+				'tip' => __('This controls the title which the user sees during checkout.', 'jigoshop'),
+				'id' => 'jigoshop_atos_title',
+				'std' => __('Carte bleue', 'jigoshop'),
+				'type' => 'text'
+			);
+			$defaults[] = array(
+				'name' => __('Customer Message', 'jigoshop'),
+				'desc' => '',
+				'tip' => __('This controls the description which the user sees during checkout.', 'jigoshop'),
+				'id' => 'jigoshop_atos_description',
+				'std' => __("Pay via Atos! You can pay with many credit card", 'jigoshop'),
+				'type' => 'longtext'
+			);
+			$defaults[] = array(
+				'name' => __('Atos email address', 'jigoshop'),
+				'desc' => '',
+				'tip' => __('Please enter your Atos email address; this is needed in order to take payment!', 'jigoshop'),
+				'id' => 'jigoshop_atos_email',
+				'std' => '',
+				'type' => 'email'
+			);
+			$defaults[] = array(
+				'name' => __('Send shipping details to Atos', 'jigoshop'),
+				'desc' => '',
+				'tip' => __('If your checkout page does not ask for shipping details, or if you do not want to send shipping information to PayPal, set this option to no. If you enable this option PayPal may restrict where things can be sent, and will prevent some orders going through for your protection.', 'jigoshop'),
+				'id' => 'jigoshop_atos_send_shipping',
+				'std' => 'no',
+				'type' => 'checkbox',
+				'choices' => array(
+					'no' => __('No', 'jigoshop'),
+					'yes' => __('Yes', 'jigoshop')
+				)
+			);
+/*			$defaults[] = array(
+				'name' => __('Force payment when free', 'jigoshop'),
+				'desc' => '',
+				'tip' => __('If product totals are free and shipping is also free (excluding taxes), this will force 0.01 to allow paypal to process payment. Shop owner is responsible for refunding customer.', 'jigoshop'),
+				'id' => 'jigoshop_paypal_force_payment',
+				'std' => 'no',
+				'type' => 'checkbox',
+				'choices' => array(
+					'no' => __('No', 'jigoshop'),
+					'yes' => __('Yes', 'jigoshop')
+				)
+			);*/
+			$defaults[] = array(
+				'name' => __('Enable Atos sandbox', 'jigoshop'),
+				'desc' => __('Turn on to enable the Atos sandbox for testing.', 'jigoshop'),
+				'tip' => '',
+				'id' => 'jigoshop_atos_testmode',
+				'std' => 'no',
+				'type' => 'checkbox',
+				'choices' => array(
+					'no' => __('No', 'jigoshop'),
+					'yes' => __('Yes', 'jigoshop')
+				)
+			);
+			$defaults[] = array(
+				'name' => __('Sandbox email address', 'jigoshop'),
+				'desc' => '',
+				'tip' => __('Please enter your Sandbox Merchant email address for use as your sandbox storefront if you have enabled the Atos sandbox.', 'jigoshop'),
+				'id' => 'jigoshop_sandbox_email',
+				'std' => '',
+				'type' => 'midtext'
+			);
+			return $defaults;
+		}
+
+		/**
+		 * Process the payment and return the result
+		 */
+		function process_payment($order_id){
+			$order = new jigoshop_order($order_id);
+			return array(
+				'result' => 'success',
+				'redirect' => add_query_arg('order', $order->id, add_query_arg('key', $order->order_key, get_permalink(jigoshop_get_page_id('pay'))))
+			);
+		}
+
+/*		function init_form_fields() {
 
 			$this->form_fields = array(
 				'enabled'                => array(
@@ -148,7 +273,7 @@ function jigoshop_atos_init() {
 					'default'     => site_url( '/automatic_response_url.php' )
 				),
 			);
-		}
+		}*/
 
 		/**
 		 * Admin Panel Options
@@ -197,9 +322,7 @@ function jigoshop_atos_init() {
 			}
 		}
 
-		/**
-		 * Process the payment and return the result
-		 **/
+/*
 		function process_payment( $order_id ) {
 			$order = &new woocommerce_order( $order_id );
 
@@ -209,7 +332,7 @@ function jigoshop_atos_init() {
 					$order->id, add_query_arg( 'key', $order->order_key,
 						get_permalink( get_option( 'woocommerce_pay_page_id' ) ) ) )
 			);
-		}
+		}*/
 
 		function showMessage( $content ) {
 			return '<div class="box ' . $this->msg['class'] . '-box">' . $this->msg['message'] . '</div>' . $content;
@@ -226,12 +349,12 @@ function jigoshop_atos_init() {
 			$pathfile = $this->pathfile;
 
 			$path_bin_request = $this->path_bin_request;
-			$parm             = "merchant_id=" . $this->merchantid;
+			$parm             = 'merchant_id=' . $this->merchantid;
 
 			$parm   = "$parm merchant_country=fr";
 			$amount = ( $order->order_total ) * 100;
 
-			$amount = str_pad( $amount, 3, "0", STR_PAD_LEFT );
+			$amount = str_pad( $amount, 3, '0', STR_PAD_LEFT );
 
 			$parm = "$parm amount=" . $amount;
 
@@ -287,11 +410,11 @@ function jigoshop_atos_init() {
 		}
 	}
 
-	function woocommerce_add_atos_gateway( $methods ) {
-		$methods[] = 'WC_wpcb_atos';
-
+	/**
+	 * Add the gateway to Jigoshop
+	 */
+	add_filter('jigoshop_payment_gateways', function ($methods){
+		$methods[] = 'Jigoshop_atos';
 		return $methods;
-	}
-
-	add_filter( 'woocommerce_payment_gateways', 'woocommerce_add_atos_gateway' );
+	});
 }
