@@ -57,22 +57,22 @@ if ( isset( $_POST['DATA'] ) ) {
 	$order    = new jigoshop_order( $response['orderid'] );
 	if ( ( $response['code'] == '' ) && ( $response['error'] == '' ) ) {
 
-		$message = sprintf("erreur appel response\n executable response non trouve %s\n Session Id: %s", $path_bin_response, $sessionid);
+		$message = sprintf(__("Response call error\n Response bin not found %s\n Session Id: %s", 'jigoshop-atos'), $path_bin_response, $sessionid);
 
 		jigoshop_log($message);
 
 		$atos->msg['class']   = 'error';
-		$atos->msg['message'] = 'Thank you for shopping with us. However, the transaction has been declined.';
+		$atos->msg['message'] = __('Thank you for shopping with us. However, the transaction has been declined.', 'jigoshop-atos');
 
 	} elseif ( $response['code'] != 0 ) {
 
-		$message = sprintf(" API call error.\n Error message: %s\n Session id: %s", $error, $sessionid);
+		$message = sprintf(__("API call error.\n Error message: %s\n Session id: %s", 'jigoshop-atos'), $error, $sessionid);
 
 		jigoshop_log($message);
 
 
 		$atos->msg['class']   = 'error';
-		$atos->msg['message'] = 'Thank you for shopping with us. However, the transaction has been declined.';
+		$atos->msg['message'] = __('Thank you for shopping with us. However, the transaction has been declined.', 'jigoshop-atos');
 
 	} else {
 
@@ -91,7 +91,7 @@ if ( isset( $_POST['DATA'] ) ) {
 			jigoshop_log($message);
 
 			$transauthorised = true;
-			$order->add_order_note( 'Paiement CB reçu en banque' );
+			$order->add_order_note( __('Payment accepted by the bank', 'jigoshop-atos') );
 			$order->payment_complete();
 		}
 

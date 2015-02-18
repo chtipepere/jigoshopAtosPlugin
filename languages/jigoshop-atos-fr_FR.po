@@ -74,6 +74,22 @@ msgstr "Url de retour normale"
 msgid "Return url when a user click on the << Back to the shop >> button"
 msgstr "Url de retour en cas de clic sur le bouton << Retour à la boutique >>"
 
+#: index.php:157
+msgid "Automatic response url"
+msgstr "Url de la réponse automatique"
+
+#: index.php:158
+msgid "URL called in case of success payment"
+msgstr "Url appelée en cas de succès"
+
+#: index.php:165
+msgid "Right image on Atos page"
+msgstr "Image apparaissant sur la droite de la page de votre banque"
+
+#: index.php:172
+msgid "Center image on Atos page"
+msgstr "Image apparaissant au centre de la page de votre banque"
+
 #: index.php:196
 msgid "Thank you for your order, please click the button below to pay."
 msgstr "Merci pour votre commande, merci de cliquer sur l'un des boutons ci-dessous."
@@ -93,3 +109,20 @@ msgstr "Vous voyez ce message car vous en êtes en mode boutique de démo."
 #: index.php:292
 msgid "End of debug mode"
 msgstr "Fin du mode debug"
+
+
+#: automatic_response.php:60
+msgid "Response call error\n Response bin not found %s\n Session Id: %s"
+msgstr "Erreur appel response\n Executable response non trouve %s\n Session Id: %s"
+
+#: automatic_response.php:65
+msgid "Thank you for shopping with us. However, the transaction has been declined."
+msgstr "Merci de votre confiance. Cependant la transaction a été refusée par la banque."
+
+#: automatic_response.php:69
+msgid "API call error.\n Error message: %s\n Session id: %s"
+msgstr "Erreur d'appel de l'API.\n Message %s\n Session id: %s"
+
+#: automatic_response.php:94
+msgid "Payment accepted by the bank"
+msgstr "Paiement accepté par la banque"
