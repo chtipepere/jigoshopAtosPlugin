@@ -59,7 +59,6 @@ function jigoshop_atos_init() {
 			$this->cancel_return_url        = $options->get('jigoshop_atos_cancel_return_url');
 			$this->automatic_response_url   = $options->get('jigoshop_atos_automatic_response_url');
 			$this->normal_return_url        = $options->get('jigoshop_atos_normal_return_url');
-			$this->logo                     = $options->get('jigoshop_atos_logo');
 			$this->logo_id2                 = $options->get('jigoshop_atos_logo_id2');
 			$this->advert                   = $options->get('jigoshop_atos_advert');
 			$this->currency                 = $options->get('jigoshop_currency');
@@ -159,13 +158,6 @@ function jigoshop_atos_init() {
 				'tip'   => __( 'URL called in case of success payment', 'jigoshop-atos' ),
 				'id'    => 'jigoshop_atos_automatic_response_url',
 				'std'   => site_url( '/wp-content/plugins/jigoshopAtosPlugin/automatic_response.php' ),
-				'type'  => 'text'
-			];
-			$defaults[] = [
-				'name'  => __('Logo', 'jigoshop-atos'),
-				'tip'   => __( 'Left image on Atos page', 'jigoshop-atos' ),
-				'id'    => 'jigoshop_atos_logo',
-				'std'   => 'logo.gif',
 				'type'  => 'text'
 			];
 			$defaults[] = [
@@ -272,8 +264,6 @@ function jigoshop_atos_init() {
 			$parm = "$parm header_flag=no";
 
 			$parm = "$parm order_id=$order_id";
-
-			$parm = "$parm logo=" . $this->logo;
 
 			$parm = "$parm logo_id2=" . $this->logo_id2;
 
