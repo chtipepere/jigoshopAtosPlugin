@@ -1,0 +1,87 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: JigoshopAtos 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-02-18 13:46-0400\n"
+"PO-Revision-Date: 2015-02-18 22:42+0100\n"
+"Last-Translator: πR <chtipepere@gmail.com>\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Poedit-SourceCharset: iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.7.4\n"
+"Language: fr_FR\n"
+
+#: index.php:83
+msgid "Atos Standard %s"
+msgstr "Atos Standard %s"
+
+#: index.php:85
+msgid "Atos works by sending the user to your bank to enter their payment information."
+msgstr "Atos fonctionne en envoyant le client vers votre banque pour qu'il saisisse ses informations de paiement."
+
+#: index.php:90
+msgid "Enable Atos"
+msgstr "Activer Atos"
+
+#: index.php:115
+msgid "Merchant id"
+msgstr "Identifiant marchand"
+
+#: index.php:116
+msgid "Merchant id given by your bank"
+msgstr "Identifiant de marchand donné par votre banque"
+
+#: index.php:122
+msgid "Pathfile file"
+msgstr "Fichier Pathfile"
+
+#: index.php:123
+msgid "Path to the pathfile file given by your bank"
+msgstr "Chemin vers le fichier pathfile donné par votre banque"
+
+#: index.php:129
+msgid "Request bin file path"
+msgstr "Chemin vers l'exécutable request"
+
+#: index.php:130
+msgid "Path to the request bin file given by your bank"
+msgstr "Chemin vers le fichier request donné par votre banque"
+
+#: index.php:136
+msgid "Response bin file path"
+msgstr "Chemin vers l'exécutable response"
+
+#: index.php:137
+msgid "Path to the response bin file given by your bank"
+msgstr "Chemin vers le fichier response donné par votre banque"
+
+#: index.php:143
+msgid "Cancel return url"
+msgstr "Url de retour après annulation"
+
+#: index.php:144
+msgid "Return url in case of canceled transaction"
+msgstr "Url de retour en cas d'annulation"
+
+#: index.php:150
+msgid "Normal return url"
+msgstr "Url de retour normale"
+
+#: index.php:151
+msgid "Return url when a user click on the << Back to the shop >> button"
+msgstr "Url de retour en cas de clic sur le bouton << Retour à la boutique >>"
+
+#: index.php:196
+msgid "Thank you for your order, please click the button below to pay."
+msgstr "Merci pour votre commande, merci de cliquer sur l'un des boutons ci-dessous."
+
+#: index.php:276
+msgid "Error calling the atos api: exec request not found"
+msgstr "Erreur lors de l'appel à l'API Atos : le fichier request n'a pas été trouvé"
+
+#: index.php:281
+msgid "Atos API error:"
+msgstr "Erreur de l'API Atos :"
