@@ -1,25 +1,25 @@
 <?php
-require_once( 'wp-load.php' ); // Necessaire pour aller chercher les options
-global $woocommerce;
-$atos = new WC_wpcb_atos();
+require_once( '../../../wp-load.php' );
+//require_once( 'wp-load.php' ); // Necessaire pour aller chercher les options
+
+$atos = new Jigoshop_atos();
+
 if ( isset( $_POST['DATA'] ) ) {
 	$transauthorised = false;
 
 	$data = escapeshellcmd( $_POST['DATA'] );
 
-	$message = "message=$data";
-
-	$pathfile = "pathfile=" . $atos->pathfile;
+	$message = sprintf('message=%s', $data);
+	$pathfile = sprintf('pathfile=%s', $atos->pathfile);
 
 	$path_bin_response = $atos->path_bin_response;
 	if ( $_POST['DATA'] == 'sandbox' ) {
 		$result = $_POST['sandbox'];
 	} else {
-
 		$result = exec( "$path_bin_response $pathfile $message" );
 	}
 
-	$tableau = explode( "!", $result );
+	$tableau = explode( '!', $result );
 
 	$response = array(
 
@@ -57,46 +57,31 @@ if ( isset( $_POST['DATA'] ) ) {
 		'data'               => $tableau[32],
 
 	);
-	$order    = new WC_Order( $response['orderid'] );
-	if ( ( $response['code'] == "" ) && ( $response['error'] == "" ) ) {
+	$order    = new jigoshop_order( $response['orderid'] );
+	if ( ( $response['code'] == '' ) && ( $response['error'] == '' ) ) {
 
 		$message = "erreur appel response\n executable response non trouve $path_bin_response\n Session Id : $sessionid";
 
-		if ( $atos->logfile ) {
-
-			$fp = fopen( $atos->logfile, "a" );
-
-			fwrite( $fp, $message );
-
-			fclose( $fp );
-
-		}
+		jigoshop_log($message);
 
 		$atos->msg['class']   = 'error';
-		$atos->msg['message'] = "Thank you for shopping with us. However, the transaction has been declined.";
+		$atos->msg['message'] = 'Thank you for shopping with us. However, the transaction has been declined.';
 
 	} elseif ( $response['code'] != 0 ) {
 
-		$message = " API call error.\n Error message :  $error\n Session Id : $sessionid";
+		$message = sprintf(" API call error.\n Error message: %s\n Session id: %s", $error, $sessionid);
 
-		if ( $atos->logfile ) {
+		jigoshop_log($message);
 
-			$fp = fopen( $atos->logfile, "a" );
-
-			fwrite( $fp, $message );
-
-			fclose( $fp );
-
-		}
 
 		$atos->msg['class']   = 'error';
-		$atos->msg['message'] = "Thank you for shopping with us. However, the transaction has been declined.";
+		$atos->msg['message'] = 'Thank you for shopping with us. However, the transaction has been declined.';
 
 	} else {
 
 		// Ok, Sauvegarde dans la base de donnée du shop.
 
-		if ( $response_code == 00 ) {
+		if ( $response['code'] == 00 ) {
 
 			$message = "-----------SALES----------------------------\n";
 
@@ -108,15 +93,7 @@ if ( isset( $_POST['DATA'] ) ) {
 
 			$message .= "-------------------------------------------\n";
 
-			if ( $atos->logfile ) {
-
-				$fp = fopen( $atos->logfile, "a" );
-
-				fwrite( $fp, $message );
-
-				fclose( $fp );
-
-			}
+			jigoshop_log($message);
 
 			$transauthorised = true;
 			$order->add_order_note( 'Paiement CB reçu en banque' );
