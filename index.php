@@ -273,12 +273,12 @@ function jigoshop_atos_init() {
 
 			if ( ( $code == '' ) && ( $error == '' ) ) {
 
-				$message = "<p>" . __( 'Error calling the atos api: exec request not found',
+				$message = '<p>' . __( 'Error calling the atos api: exec request not found',
 						'jigoshop-atos' ) . "  $path_bin_request</p>";
 
 			} elseif ( $code != 0 ) {
 
-				$message = "<p>" . __( 'Atos API error:', 'jigoshop-atos' ) . " $error</p>";
+				$message = '<p>' . __( 'Atos API error:', 'jigoshop-atos' ) . " $error</p>";
 
 			} else {
 
@@ -286,7 +286,11 @@ function jigoshop_atos_init() {
 				$message = $tableau[3];
 			}
 			$parm_pretty = str_replace( ' ', '<br/>', $parm );
-			$message .= '<p>You see this because you are in debug mode :</p><pre>' . $parm_pretty . '</pre><p>End of debug mode</p>';
+			if (Jigoshop_Base::get_options()->get('jigoshop_demo_store') == 'yes') {
+				$message .= '<p>' . __('You see this because you are in demo store mode.', 'jigoshop-atos') . '</p>';
+				$message .= '<pre>' . $parm_pretty . '</pre>';
+				$message .= '<p>' . __('End of debug mode', 'jigoshop-atos') . '</p>';
+			}
 
 			return $message;
 		}

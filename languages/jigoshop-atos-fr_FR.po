@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: JigoshopAtos 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-02-18 13:46-0400\n"
-"PO-Revision-Date: 2015-02-18 22:42+0100\n"
+"PO-Revision-Date: 2015-02-18 23:15+0100\n"
 "Last-Translator: πR <chtipepere@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -85,3 +85,11 @@ msgstr "Erreur lors de l'appel à l'API Atos : le fichier request n'a pas été 
 #: index.php:281
 msgid "Atos API error:"
 msgstr "Erreur de l'API Atos :"
+
+#: index.php:290
+msgid "You see this because you are in demo store mode."
+msgstr "Vous voyez ce message car vous en êtes en mode boutique de démo."
+
+#: index.php:292
+msgid "End of debug mode"
+msgstr "Fin du mode debug"
