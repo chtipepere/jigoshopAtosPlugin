@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: JigoshopAtos 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-02-18 13:46-0400\n"
-"PO-Revision-Date: 2015-02-18 23:15+0100\n"
+"PO-Revision-Date: 2015-02-19 00:33+0100\n"
 "Last-Translator: πR <chtipepere@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -110,18 +110,29 @@ msgstr "Vous voyez ce message car vous en êtes en mode boutique de démo."
 msgid "End of debug mode"
 msgstr "Fin du mode debug"
 
-
 #: automatic_response.php:60
-msgid "Response call error\n Response bin not found %s\n Session Id: %s"
-msgstr "Erreur appel response\n Executable response non trouve %s\n Session Id: %s"
+msgid ""
+"Response call error\n"
+" Response bin not found %s\n"
+" Session Id: %s"
+msgstr ""
+"Erreur appel response\n"
+" Executable response non trouve %s\n"
+" Session Id: %s"
 
 #: automatic_response.php:65
 msgid "Thank you for shopping with us. However, the transaction has been declined."
 msgstr "Merci de votre confiance. Cependant la transaction a été refusée par la banque."
 
 #: automatic_response.php:69
-msgid "API call error.\n Error message: %s\n Session id: %s"
-msgstr "Erreur d'appel de l'API.\n Message %s\n Session id: %s"
+msgid ""
+"API call error.\n"
+" Error message: %s\n"
+" Session id: %s"
+msgstr ""
+"Erreur d'appel de l'API.\n"
+" Message %s\n"
+" Session id: %s"
 
 #: automatic_response.php:94
 msgid "Payment accepted by the bank"
