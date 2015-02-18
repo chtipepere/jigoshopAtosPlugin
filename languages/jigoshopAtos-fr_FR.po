@@ -1,0 +1,27 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: JigoshopAtos 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-02-18 13:46-0400\n"
+"PO-Revision-Date: 2015-02-18 22:04+0100\n"
+"Last-Translator: πR <chtipepere@gmail.com>\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Poedit-SourceCharset: iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.6.9\n"
+"Language: fr_FR\n"
+
+#: index.php:83
+msgid "Atos Standard %s"
+msgstr "Atos Standard %s"
+
+#: index.php:85
+msgid "Atos works by sending the user to your bank to enter their payment information."
+msgstr "Atos fonctionne en envoyant le client vers votre banque pour qu'il saisisse ses informations de paiement."
+
+#: index.php:90
+msgid "Enable Atos"
+msgstr "Activer Atos"

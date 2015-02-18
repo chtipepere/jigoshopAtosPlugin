@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Jigoshop Atos SIPS gateway
+Plugin Name: JigoshopAtos
 Plugin URI: https://github.com/chtipepere/jigoshopAtosPlugin
 Description: Extends Jigoshop with Atos SIPS gateway (French bank).
 Version: 1.0
@@ -19,6 +19,9 @@ function jigoshop_atos_init() {
 		return;
 	}
 
+	/** Translations */
+	load_plugin_textdomain('JigoshopAtos', false, dirname(plugin_basename(__FILE__)) . '/languages/');
+
 	/**
 	 * Add the gateway to Jigoshop
 	 */
@@ -32,8 +35,6 @@ function jigoshop_atos_init() {
 	 */
 	class Jigoshop_atos extends jigoshop_payment_gateway {
 
-		private static $allowed_currencies = ['EUR' => 'EUR'];
-
 		public $msg = [];
 		protected $settings;
 
@@ -44,7 +45,7 @@ function jigoshop_atos_init() {
 
 			// Go wild in here
 			$this->id                       = 'jigoshop_atos';
-			$this->method_title             = __( 'Atos', 'atos' );
+			$this->method_title             = 'Atos';
 			$this->icon                     = WP_PLUGIN_URL . '/' . plugin_basename( dirname( __FILE__ ) ) . '/images/logo.gif';
 			$this->has_fields               = false;
 			$this->enabled                  = $options->get('jigoshop_atos_is_enabled');
@@ -79,14 +80,14 @@ function jigoshop_atos_init() {
 			$defaults = [];
 			// Define the Section name for the Jigoshop_Options
 			$defaults[] = [
-				'name' => sprintf(__('Atos Standard %s', 'atos'), '<img style="vertical-align:middle;margin-top:-4px;margin-left:10px;" src="' . WP_PLUGIN_URL . '/' . plugin_basename( dirname( __FILE__ ) ) . '/images/logo.gif" alt="Atos">'),
+				'name' => sprintf(__('Atos Standard %s', 'JigoshopAtos'), '<img style="vertical-align:middle;margin-top:-4px;margin-left:10px;" src="' . WP_PLUGIN_URL . '/' . plugin_basename( dirname( __FILE__ ) ) . '/images/logo.gif" alt="Atos">'),
 				'type' => 'title',
-				'desc' => __('Atos works by sending the user to your bank to enter their payment information.', 'jigoshop')
+				'desc' => __('Atos works by sending the user to your bank to enter their payment information.', 'JigoshopAtos')
 			];
 
 			// List each option in order of appearance with details
 			$defaults[] = [
-				'name'      => __('Enable Atos', 'atos'),
+				'name'      => __('Enable Atos', 'JigoshopAtos'),
 				'id'        => 'jigoshop_atos_is_enabled',
 				'std'       => 'no',
 				'type'      => 'checkbox',
@@ -106,61 +107,61 @@ function jigoshop_atos_init() {
 				'name'  => __('Customer Message', 'jigoshop'),
 				'tip'   => __('This controls the description which the user sees during checkout.', 'jigoshop'),
 				'id'    => 'jigoshop_atos_description',
-				'std'   => __( 'Paiement sécurisé par Carte Bancaire (Atos)', 'atos' ),
+				'std'   => __( 'Paiement sécurisé par Carte Bancaire (Atos)', 'JigoshopAtos' ),
 				'type'  => 'longtext'
 			];
 			$defaults[] = [
 				'name'  => __('Merchant id', 'atos'),
-				'tip'   => __('Identifiant de marchand donné par votre banque', 'atos'),
+				'tip'   => __('Identifiant de marchand donné par votre banque', 'JigoshopAtos'),
 				'id'    => 'jigoshop_atos_merchant_id',
-				'std'   => __('010101010101010', 'atos'),
+				'std'   => '010101010101010',
 				'type'  => 'text'
 			];
 			$defaults[] = [
-				'name'  => __('Pathfile', 'atos'),
-				'tip'   => __( 'Chemin vers le fichier pathfile donné par votre banque', 'atos' ),
+				'name'  => __('Pathfile', 'JigoshopAtos'),
+				'tip'   => __( 'Chemin vers le fichier pathfile donné par votre banque', 'JigoshopAtos' ),
 				'id'    => 'jigoshop_atos_pathfile',
 				'std'   => '/var/www/site/cgi-bin/pathfile',
 				'type'  => 'text'
 			];
 			$defaults[] = [
-				'name'  => __('Path bin request', 'atos'),
-				'tip'   => __( 'Chemin vers le fichier request donné par votre banque', 'atos' ),
+				'name'  => __('Path bin request', 'JigoshopAtos'),
+				'tip'   => __( 'Chemin vers le fichier request donné par votre banque', 'JigoshopAtos' ),
 				'id'    => 'jigoshop_atos_path_bin_request',
 				'std'   => '/var/www/site/cgi-bin/request',
 				'type'  => 'text'
 			];
 			$defaults[] = [
-				'name'  => __('Path bin response', 'atos'),
-				'tip'   => __( 'Chemin vers le fichier response donné par votre banque', 'atos' ),
+				'name'  => __('Path bin response', 'JigoshopAtos'),
+				'tip'   => __( 'Chemin vers le fichier response donné par votre banque', 'JigoshopAtos' ),
 				'id'    => 'jigoshop_atos_path_bin_response',
 				'std'   => '/var/www/site/cgi-bin/response',
 				'type'  => 'text'
 			];
 			$defaults[] = [
-				'name'  => __('Cancel return url', 'atos'),
-				'tip'   => __( 'Url de retour en cas d\'annulation', 'atos' ),
+				'name'  => __('Cancel return url', 'JigoshopAtos'),
+				'tip'   => __( 'Url de retour en cas d\'annulation', 'JigoshopAtos' ),
 				'id'    => 'jigoshop_atos_cancel_return_url',
 				'std'   => site_url( '/cancel' ),
 				'type'  => 'text'
 			];
 			$defaults[] = [
-				'name'  => __('Normal return url', 'atos'),
-				'tip'   => __( 'Url de retour en cas de clic sur le bouton << Retour à la boutique >>', 'atos' ),
+				'name'  => __('Normal return url', 'JigoshopAtos'),
+				'tip'   => __( 'Url de retour en cas de clic sur le bouton << Retour à la boutique >>', 'JigoshopAtos' ),
 				'id'    => 'jigoshop_atos_normal_return_url',
 				'std'   => site_url( '/thankyou' ),
 				'type'  => 'text'
 			];
 			$defaults[] = [
-				'name'  => __('Logo id2', 'atos'),
-				'tip'   => __( 'Image logo_id2.gif', 'atos' ),
+				'name'  => __('Logo id2', 'JigoshopAtos'),
+				'tip'   => __( 'Image logo_id2.gif', 'JigoshopAtos' ),
 				'id'    => 'jigoshop_atos_logo_id2',
 				'std'   => 'logo_id2.gif',
 				'type'  => 'text'
 			];
 			$defaults[] = [
-				'name'  => __('Advert', 'atos'),
-				'tip'   => __( 'Image advert.gif', 'atos' ),
+				'name'  => __('Advert', 'JigoshopAtos'),
+				'tip'   => __( 'Image advert.gif', 'JigoshopAtos' ),
 				'id'    => 'jigoshop_atos_advert',
 				'std'   => 'advert.gif',
 				'type'  => 'text'
@@ -192,7 +193,7 @@ function jigoshop_atos_init() {
 
 		function receipt_page( $order_id ) {
 			echo '<p>' . __( 'Thank you for your order, please click the button below to pay with atos.',
-					'atos' ) . '</p>';
+					'JigoshopAtos' ) . '</p>';
 			echo $this->generate_atos_form( $order_id );
 		}
 
@@ -272,11 +273,11 @@ function jigoshop_atos_init() {
 			if ( ( $code == '' ) && ( $error == '' ) ) {
 
 				$message = "<p>" . __( 'Error calling the atos api : exec request not found',
-						'atos' ) . "  $path_bin_request</p>";
+						'JigoshopAtos' ) . "  $path_bin_request</p>";
 
 			} elseif ( $code != 0 ) {
 
-				$message = "<p>" . __( 'Atos API error : ', 'wpcb' ) . " $error</p>";
+				$message = "<p>" . __( 'Atos API error : ', 'JigoshopAtos' ) . " $error</p>";
 
 			} else {
 
