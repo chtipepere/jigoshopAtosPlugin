@@ -1,6 +1,5 @@
 <?php
 require_once( '../../../wp-load.php' );
-//require_once( 'wp-load.php' ); // Necessaire pour aller chercher les options
 
 $atos = new Jigoshop_atos();
 
@@ -22,7 +21,6 @@ if ( isset( $_POST['DATA'] ) ) {
 	$tableau = explode( '!', $result );
 
 	$response = array(
-
 		'code'               => $tableau[1],
 		'error'              => $tableau[2],
 		'merchantid'         => $tableau[3],
@@ -54,13 +52,12 @@ if ( isset( $_POST['DATA'] ) ) {
 		'customeripaddress'  => $tableau[29],
 		'captureday'         => $tableau[30],
 		'capturemode'        => $tableau[31],
-		'data'               => $tableau[32],
-
+		'data'               => $tableau[32]
 	);
 	$order    = new jigoshop_order( $response['orderid'] );
 	if ( ( $response['code'] == '' ) && ( $response['error'] == '' ) ) {
 
-		$message = "erreur appel response\n executable response non trouve $path_bin_response\n Session Id : $sessionid";
+		$message = sprintf("erreur appel response\n executable response non trouve %s\n Session Id: %s", $path_bin_response, $sessionid);
 
 		jigoshop_log($message);
 
@@ -79,8 +76,6 @@ if ( isset( $_POST['DATA'] ) ) {
 
 	} else {
 
-		// Ok, Sauvegarde dans la base de donnée du shop.
-
 		if ( $response['code'] == 00 ) {
 
 			$message = "-----------SALES----------------------------\n";
@@ -98,8 +93,6 @@ if ( isset( $_POST['DATA'] ) ) {
 			$transauthorised = true;
 			$order->add_order_note( 'Paiement CB reçu en banque' );
 			$order->payment_complete();
-			$woocommerce->cart->empty_cart();
-
 		}
 
 	}
