@@ -120,31 +120,24 @@ function jigoshop_atos_init() {
 				'type'  => 'text'
 			];
 			$defaults[] = [
-				'name'  => __('Merchant name', 'jigoshop-atos'),
-				'tip'   => __('Merchant name displayed in payment page', 'jigoshop-atos'),
-				'id'    => 'jigoshop_atos_merchant_name',
-				'std'   => 'Shop name',
-				'type'  => 'text'
-			];
-			$defaults[] = [
 				'name'  => __('Pathfile file', 'jigoshop-atos'),
 				'tip'   => __( 'Path to the pathfile file given by your bank', 'jigoshop-atos' ),
 				'id'    => 'jigoshop_atos_pathfile',
-				'std'   => '/var/www/site/cgi-bin/pathfile',
+				'std'   => '/var/www/site/param/pathfile',
 				'type'  => 'text'
 			];
 			$defaults[] = [
 				'name'  => __('Request bin file path', 'jigoshop-atos'),
 				'tip'   => __( 'Path to the request bin file given by your bank', 'jigoshop-atos' ),
 				'id'    => 'jigoshop_atos_path_bin_request',
-				'std'   => '/var/www/site/cgi-bin/request',
+				'std'   => '/var/www/site/bin/static/request',
 				'type'  => 'text'
 			];
 			$defaults[] = [
 				'name'  => __('Response bin file path', 'jigoshop-atos'),
 				'tip'   => __( 'Path to the response bin file given by your bank', 'jigoshop-atos' ),
 				'id'    => 'jigoshop_atos_path_bin_response',
-				'std'   => '/var/www/site/cgi-bin/response',
+				'std'   => '/var/www/site/bin/static/response',
 				'type'  => 'text'
 			];
 			$defaults[] = [
@@ -247,7 +240,6 @@ function jigoshop_atos_init() {
 
 			$path_bin_request = $this->path_bin_request;
 			$parm             = 'merchant_id=' . $this->merchant_id;
-			$parm             = 'merchant_name=' . $this->merchant_name;
 
 			$parm   = "$parm merchant_country=fr";
 			$amount = ( $order->order_total ) * 100;
