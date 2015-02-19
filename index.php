@@ -53,6 +53,7 @@ function jigoshop_atos_init() {
 			$this->title                    = $options->get('jigoshop_atos_title');
 			$this->description              = $options->get('jigoshop_atos_description');
 			$this->merchant_id              = $options->get('jigoshop_atos_merchant_id');
+			$this->merchant_name            = $options->get('jigoshop_atos_merchant_name');
 			$this->pathfile                 = $options->get('jigoshop_atos_pathfile');
 			$this->path_bin_request         = $options->get('jigoshop_atos_path_bin_request');
 			$this->path_bin_response        = $options->get('jigoshop_atos_path_bin_response');
@@ -115,7 +116,14 @@ function jigoshop_atos_init() {
 				'name'  => __('Merchant id', 'jigoshop-atos'),
 				'tip'   => __('Merchant id given by your bank', 'jigoshop-atos'),
 				'id'    => 'jigoshop_atos_merchant_id',
-				'std'   => '011223344551112',
+				'std'   => '014022286611112',
+				'type'  => 'text'
+			];
+			$defaults[] = [
+				'name'  => __('Merchant name', 'jigoshop-atos'),
+				'tip'   => __('Merchant name displayed in payment page', 'jigoshop-atos'),
+				'id'    => 'jigoshop_atos_merchant_name',
+				'std'   => 'Shop name',
 				'type'  => 'text'
 			];
 			$defaults[] = [
@@ -239,6 +247,7 @@ function jigoshop_atos_init() {
 
 			$path_bin_request = $this->path_bin_request;
 			$parm             = 'merchant_id=' . $this->merchant_id;
+			$parm             = 'merchant_name=' . $this->merchant_name;
 
 			$parm   = "$parm merchant_country=fr";
 			$amount = ( $order->order_total ) * 100;

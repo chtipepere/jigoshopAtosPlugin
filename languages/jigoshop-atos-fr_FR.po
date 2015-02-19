@@ -34,79 +34,87 @@ msgstr "Identifiant marchand"
 msgid "Merchant id given by your bank"
 msgstr "Identifiant de marchand donné par votre banque"
 
-#: index.php:122
+#: index.php:123
+msgid "Merchant name"
+msgstr "Nom de la boutique"
+
+#: index.php:123
+msgid "Merchant name displayed in payment page"
+msgstr "Nom de la boutique affiché sur la page de paiement"
+
+#: index.php:130
 msgid "Pathfile file"
 msgstr "Fichier Pathfile"
 
-#: index.php:123
+#: index.php:131
 msgid "Path to the pathfile file given by your bank"
 msgstr "Chemin vers le fichier pathfile donné par votre banque"
 
-#: index.php:129
+#: index.php:137
 msgid "Request bin file path"
 msgstr "Chemin vers l'exécutable request"
 
-#: index.php:130
+#: index.php:138
 msgid "Path to the request bin file given by your bank"
 msgstr "Chemin vers le fichier request donné par votre banque"
 
-#: index.php:136
+#: index.php:144
 msgid "Response bin file path"
 msgstr "Chemin vers l'exécutable response"
 
-#: index.php:137
+#: index.php:145
 msgid "Path to the response bin file given by your bank"
 msgstr "Chemin vers le fichier response donné par votre banque"
 
-#: index.php:143
+#: index.php:151
 msgid "Cancel return url"
 msgstr "Url de retour après annulation"
 
-#: index.php:144
+#: index.php:152
 msgid "Return url in case of canceled transaction"
 msgstr "Url de retour en cas d'annulation"
 
-#: index.php:150
+#: index.php:158
 msgid "Normal return url"
 msgstr "Url de retour normale"
 
-#: index.php:151
+#: index.php:159
 msgid "Return url when a user click on the << Back to the shop >> button"
 msgstr "Url de retour en cas de clic sur le bouton << Retour à la boutique >>"
 
-#: index.php:157
+#: index.php:165
 msgid "Automatic response url"
 msgstr "Url de la réponse automatique"
 
-#: index.php:158
+#: index.php:166
 msgid "URL called in case of success payment"
 msgstr "Url appelée en cas de succès"
 
-#: index.php:165
+#: index.php:173
 msgid "Right image on Atos page"
 msgstr "Image apparaissant sur la droite de la page de votre banque"
 
-#: index.php:172
+#: index.php:180
 msgid "Center image on Atos page"
 msgstr "Image apparaissant au centre de la page de votre banque"
 
-#: index.php:196
+#: index.php:204
 msgid "Thank you for your order, please click the button below to pay."
 msgstr "Merci pour votre commande, merci de cliquer sur l'un des boutons ci-dessous."
 
-#: index.php:276
+#: index.php:284
 msgid "Error calling the atos api: exec request not found"
 msgstr "Erreur lors de l'appel à l'API Atos : le fichier request n'a pas été trouvé"
 
-#: index.php:281
+#: index.php:289
 msgid "Atos API error:"
 msgstr "Erreur de l'API Atos :"
 
-#: index.php:290
+#: index.php:298
 msgid "You see this because you are in demo store mode."
 msgstr "Vous voyez ce message car vous en êtes en mode boutique de démo."
 
-#: index.php:292
+#: index.php:300
 msgid "End of debug mode"
 msgstr "Fin du mode debug"
 

@@ -20,6 +20,7 @@ To use the credit cards logos given with this plugin, change images path in your
 D_LOGO!/wp-content/plugins/jigoshopAtosPlugin/images/!
 ```
 
+Take a look at the examples atos files provided with this plugin to put the correct values in **YOUR** param files.
 
 ----------
 
@@ -38,3 +39,4 @@ Credit card failed infos
     Credit cart n°: 4974934125497800
     Crypt key: 655
     Expiration date: anything in the future
+
