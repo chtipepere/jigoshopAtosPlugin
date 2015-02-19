@@ -40,3 +40,7 @@ Credit card failed infos
     Crypt key: 655
     Expiration date: anything in the future
 
+For 3D secure test
+
+    Valid password: 00000000
+    Invalid password: anything else
