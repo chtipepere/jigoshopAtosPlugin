@@ -4,7 +4,7 @@ Plugin Name: JigoshopAtos
 Text Domain: jigoshop-atos
 Plugin URI: https://github.com/chtipepere/jigoshopAtosPlugin
 Description: Extends Jigoshop with Atos SIPS gateway (French bank).
-Version: 1.0
+Version: 1.1
 Author: πR
 
 http://blog.manit4c.com/2009/12/18/installation-dun-paiement-atos-sips-tutoriel-premiere-partie/
@@ -49,20 +49,20 @@ function jigoshop_atos_init() {
 			$this->method_title             = 'Atos';
 			$this->icon                     = WP_PLUGIN_URL . '/' . plugin_basename( dirname( __FILE__ ) ) . '/images/logo.gif';
 			$this->has_fields               = false;
-			$this->enabled                  = $options->get('jigoshop_atos_is_enabled');
-			$this->title                    = $options->get('jigoshop_atos_title');
-			$this->description              = $options->get('jigoshop_atos_description');
-			$this->merchant_id              = $options->get('jigoshop_atos_merchant_id');
-			$this->merchant_name            = $options->get('jigoshop_atos_merchant_name');
-			$this->pathfile                 = $options->get('jigoshop_atos_pathfile');
-			$this->path_bin_request         = $options->get('jigoshop_atos_path_bin_request');
-			$this->path_bin_response        = $options->get('jigoshop_atos_path_bin_response');
-			$this->cancel_return_url        = $options->get('jigoshop_atos_cancel_return_url');
-			$this->automatic_response_url   = $options->get('jigoshop_atos_automatic_response_url');
-			$this->normal_return_url        = $options->get('jigoshop_atos_normal_return_url');
-			$this->logo_id2                 = $options->get('jigoshop_atos_logo_id2');
-			$this->advert                   = $options->get('jigoshop_atos_advert');
-			$this->currency                 = $options->get('jigoshop_currency');
+			$this->enabled                  = $options->get_option('jigoshop_atos_is_enabled');
+			$this->title                    = $options->get_option('jigoshop_atos_title');
+			$this->description              = $options->get_option('jigoshop_atos_description');
+			$this->merchant_id              = $options->get_option('jigoshop_atos_merchant_id');
+			$this->merchant_name            = $options->get_option('jigoshop_atos_merchant_name');
+			$this->pathfile                 = $options->get_option('jigoshop_atos_pathfile');
+			$this->path_bin_request         = $options->get_option('jigoshop_atos_path_bin_request');
+			$this->path_bin_response        = $options->get_option('jigoshop_atos_path_bin_response');
+			$this->cancel_return_url        = $options->get_option('jigoshop_atos_cancel_return_url');
+			$this->automatic_response_url   = $options->get_option('jigoshop_atos_automatic_response_url');
+			$this->normal_return_url        = $options->get_option('jigoshop_atos_normal_return_url');
+			$this->logo_id2                 = $options->get_option('jigoshop_atos_logo_id2');
+			$this->advert                   = $options->get_option('jigoshop_atos_advert');
+			$this->currency                 = $options->get_option('jigoshop_currency');
 			$this->notify_url               = jigoshop_request_api::query_request('?js-api=JS_Gateway_Atos', false);
 
 			$this->msg['message']           = '';
@@ -302,7 +302,7 @@ function jigoshop_atos_init() {
 				$message = $tableau[3];
 			}
 			$parm_pretty = str_replace( ' ', '<br/>', $parm );
-			if (Jigoshop_Base::get_options()->get('jigoshop_demo_store') == 'yes') {
+			if (Jigoshop_Base::get_options()->get_option('jigoshop_demo_store') == 'yes') {
 				$message .= '<p>' . __('You see this because you are in demo store mode.', 'jigoshop-atos') . '</p>';
 				$message .= '<pre>' . $parm_pretty . '</pre>';
 				$message .= '<p>' . __('End of debug mode', 'jigoshop-atos') . '</p>';

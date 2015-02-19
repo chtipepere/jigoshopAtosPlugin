@@ -1,7 +1,7 @@
 === JigoshopAtos ===
 Contributors: chtipepere
 Tags: JigoShop, Payment Gateway, Atos, Cartes Bancaires
-Requires at least: 4.1
+Requires at least: 4.0.1
 Tested up to: 4.1
 Stable tag: 1.1
 License: Apache License 2.0
@@ -13,7 +13,7 @@ Handle Atos payment for Jigoshop plugin.
 
 Handles Atos payment, credit card payment for french banks.
 
-Inspired from http://thomasdt.com
+https://github.com/chtipepere/jigoshopAtosPlugin
 
 == Installation ==
 
@@ -32,3 +32,12 @@ See https://github.com/chtipepere/jigoshopAtosPlugin
 
 = 1.1 =
 You can now manage the shop name displayed on payment page.
+
+== Jigoshop Compatibility ==
+
+Requires at least: 1.8
+Tested up to: 1.15
+
+== Thanks to ==
+
+Inspired from http://thomasdt.com
