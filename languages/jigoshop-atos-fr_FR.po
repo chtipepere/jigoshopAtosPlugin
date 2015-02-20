@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: JigoshopAtos 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-02-18 13:46-0400\n"
-"PO-Revision-Date: 2015-02-19 22:52+0100\n"
+"PO-Revision-Date: 2015-02-20 23:09+0100\n"
 "Last-Translator: πR <chtipepere@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -13,6 +13,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.7.4\n"
 "Language: fr_FR\n"
+
+#: index.php:44
+msgid "payment"
+msgstr "paiement"
+
+#: index.php:45
+msgid "Docs"
+msgstr "Documentation"
 
 #: index.php:83
 msgid "Atos Standard %s"

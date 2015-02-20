@@ -4,7 +4,7 @@ Plugin Name: JigoshopAtos
 Text Domain: jigoshop-atos
 Plugin URI: https://github.com/chtipepere/jigoshopAtosPlugin
 Description: Extends Jigoshop with Atos SIPS gateway (French bank).
-Version: 1.1
+Version: 1.2
 Author: πR
 
 http://thomasdt.com/woocommerce/
@@ -36,6 +36,16 @@ function jigoshop_atos_init() {
 	});
 
 	include_once( 'automatic_response.php' );
+
+	add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'add_action_links' );
+
+	function add_action_links ( $links ) {
+		$mylinks = [
+			'<a href="' . admin_url( sprintf('admin.php?page=jigoshop_settings&tab=%s', __('payment', 'jigoshop-atos')) ) . '">'.__('Settings', 'jigoshop') . '</a>',
+			'<a href="https://github.com/chtipepere/jigoshopAtosPlugin/blob/master/README.md">'.__('Docs', 'jigoshop-atos') . '</a>'
+		];
+		return array_merge( $links, $mylinks );
+	}
 
 	/**
 	 * Gateway class
