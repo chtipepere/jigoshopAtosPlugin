@@ -22,6 +22,13 @@ D_LOGO!/wp-content/plugins/jigoshopAtosPlugin/images/!
 
 Take a look at the examples atos files provided with this plugin to put the correct values in **YOUR** param files.
 
+**Automatic response**
+
+Create a page that contains shortcode above and fill the automatic_response_url field in admin.
+
+```
+[jigoshop_atos_automatic_response]
+```
 ----------
 
 Test mode

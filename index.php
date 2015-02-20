@@ -1,5 +1,5 @@
 <?php
-/*
+/**
 Plugin Name: JigoshopAtos
 Text Domain: jigoshop-atos
 Plugin URI: https://github.com/chtipepere/jigoshopAtosPlugin
@@ -7,17 +7,21 @@ Description: Extends Jigoshop with Atos SIPS gateway (French bank).
 Version: 1.1
 Author: πR
 
-http://blog.manit4c.com/2009/12/18/installation-dun-paiement-atos-sips-tutoriel-premiere-partie/
 http://thomasdt.com/woocommerce/
-*/
+**/
 
-add_action( 'plugins_loaded', 'jigoshop_atos_init', 0 );
+if (function_exists('add_action')) {
+	add_action( 'plugins_loaded', 'jigoshop_atos_init', 0 );
+}
 
 function jigoshop_atos_init() {
 
 	if ( ! class_exists( 'jigoshop_payment_gateway' ) ) {
 		return;
 	}
+
+	// Jigoshop 1.8+ required
+	if (true === version_compare(JIGOSHOP_VERSION, '1.8', '<')) return;
 
 	/** Translations */
 	$plugin_dir = basename(dirname(__FILE__));
@@ -30,6 +34,8 @@ function jigoshop_atos_init() {
 		$methods[] = 'Jigoshop_atos';
 		return $methods;
 	});
+
+	include_once( 'automatic_response.php' );
 
 	/**
 	 * Gateway class
@@ -69,9 +75,6 @@ function jigoshop_atos_init() {
 			$this->msg['class']             = '';
 
 			add_action('receipt_jigoshop_atos', [$this, 'receipt_page']);
-			//add_action('valid-atos-request', [$this, 'successful_request']);
-
-			//add_action('jigoshop_api_js_gateway_atos', array($this, 'check_atos_response'));
 		}
 
 		/**
@@ -158,7 +161,7 @@ function jigoshop_atos_init() {
 				'name'  => __('Automatic response url', 'jigoshop-atos'),
 				'tip'   => __( 'URL called in case of success payment', 'jigoshop-atos' ),
 				'id'    => 'jigoshop_atos_automatic_response_url',
-				'std'   => site_url( '/wp-content/plugins/jigoshopAtosPlugin/automatic_response.php' ),
+				'std'   => site_url( '?page=12' ),
 				'type'  => 'text'
 			];
 			$defaults[] = [
@@ -211,18 +214,6 @@ function jigoshop_atos_init() {
 				echo wpautop( wptexturize( $this->mercitxt ) );
 			}
 		}
-
-/*
-		function process_payment( $order_id ) {
-			$order = &new woocommerce_order( $order_id );
-
-			return array(
-				'result'   => 'success',
-				'redirect' => add_query_arg( 'order',
-					$order->id, add_query_arg( 'key', $order->order_key,
-						get_permalink( get_option( 'woocommerce_pay_page_id' ) ) ) )
-			);
-		}*/
 
 		public function showMessage( $content ) {
 			return '<div class="box ' . $this->msg['class'] . '-box">' . $this->msg['message'] . '</div>' . $content;
