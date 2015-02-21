@@ -1,14 +1,5 @@
 <?php
-/**
-Plugin Name: JigoshopAtos
-Text Domain: jigoshop-atos
-Plugin URI: https://github.com/chtipepere/jigoshopAtosPlugin
-Description: Extends Jigoshop with Atos SIPS gateway (French bank).
-Version: 1.2
-Author: πR
-
-http://thomasdt.com/woocommerce/
-**/
+/** JigoshopAtos **/
 
 add_shortcode( 'jigoshop_atos_automatic_response', 'jigoshop_atos_automatic_response' );
 
