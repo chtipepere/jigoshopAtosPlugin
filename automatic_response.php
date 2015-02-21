@@ -18,17 +18,13 @@ function jigoshop_atos_automatic_response( $atts ) {
 	if ( isset( $_POST['DATA'] ) ) {
 		$transauthorised = false;
 
-		$data = escapeshellcmd( $_POST['DATA'] );
+		$data = escapeshellcmd( sanitize_text_field($_POST['DATA']) );
 
 		$message = sprintf('message=%s', $data);
 		$pathfile = sprintf('pathfile=%s', $atos->pathfile);
 
 		$path_bin_response = $atos->path_bin_response;
-		if ( $_POST['DATA'] == 'sandbox' ) {
-			$result = $_POST['sandbox'];
-		} else {
-			$result = exec( "$path_bin_response $pathfile $message" );
-		}
+		$result = exec( "$path_bin_response $pathfile $message" );
 
 		$results = explode( '!', $result );
 
