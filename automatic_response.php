@@ -101,6 +101,6 @@ function jigoshop_atos_automatic_response( $atts ) {
 			$order->add_order_note( $atos->msg['message'] );
 		}
 	} else { // end of check post
-		echo 'Precontdition failed.';
+		echo __('Precondition failed.', 'jigoshop-atos');
 	}
 }

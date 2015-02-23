@@ -4,11 +4,42 @@ Plugin Name: JigoshopAtos
 Text Domain: jigoshop-atos
 Plugin URI: https://github.com/chtipepere/jigoshopAtosPlugin
 Description: Extends Jigoshop with Atos SIPS gateway (French bank).
-Version: 1.2
+Version: 1.3
 Author: πR
+ **/
 
-http://thomasdt.com/woocommerce/
-**/
+if (!defined('JIGOSHOP_VERSION')) {
+	function jigoshop_required(){
+		echo '<div class="error"><p>'.
+		     __('<strong>Error!</strong> Jigoshop is mandatory. Please install it.', 'jigoshop-atos').
+		     '</p></div>';
+	}
+	add_action('admin_notices', 'jigoshop_required');
+	return;
+}
+
+define('JIGOSHOPATOS_PHP_VERSION', '5.4');
+define('JIGOSHOP_MINIMUM_VERSION', '1.8');
+
+if(!version_compare(PHP_VERSION, JIGOSHOPATOS_PHP_VERSION, '>=')) {
+	function jigoshopatos_required_version(){
+		echo '<div class="error"><p>'.
+		     sprintf(__('<strong>Error!</strong> JigoshopAtos requires at least PHP %s! Your version is: %s. Please upgrade.', 'jigoshop-atos'), JIGOSHOPATOS_PHP_VERSION, PHP_VERSION).
+		     '</p></div>';
+	}
+	add_action('admin_notices', 'jigoshopatos_required_version');
+	return;
+}
+
+if(!version_compare(JIGOSHOP_VERSION, JIGOSHOP_MINIMUM_VERSION, '>=')) {
+	function jigoshop_minimum_version(){
+		echo '<div class="error"><p>'.
+		     sprintf(__('<strong>Error!</strong> JigoshopAtos requires at least Jigoshop %s! Your version is: %s. Please upgrade.', 'jigoshop-atos'), JIGOSHOP_MINIMUM_VERSION, JIGOSHOP_VERSION).
+		     '</p></div>';
+	}
+	add_action('admin_notices', 'jigoshop_minimum_version');
+	return;
+}
 
 if (function_exists('add_action')) {
 	add_action( 'plugins_loaded', 'jigoshop_atos_init', 0 );

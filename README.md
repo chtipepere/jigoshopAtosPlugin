@@ -51,3 +51,16 @@ For 3D secure test
 
     Valid password: 00000000
     Invalid password: anything else
+
+Security
+---------
+For security purpose, the param files **must** be located somewhere outside the webroot of your site.
+Example: if your wordpress installation is something like
+```
+/var/www/wordpress
+```
+Then your param files should be located in:
+```
+/var/atos/param/ 
+```
+ 
