@@ -6,7 +6,12 @@ Plugin URI: https://github.com/chtipepere/jigoshopAtosPlugin
 Description: Extends Jigoshop with Atos SIPS gateway (French bank).
 Version: 1.3
 Author: πR
- **/
+**/
+
+// Exit if accessed directly
+if (false === defined('ABSPATH')) {
+	exit;
+}
 
 if (!defined('JIGOSHOP_VERSION')) {
 	function jigoshop_required(){

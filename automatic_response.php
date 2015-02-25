@@ -1,6 +1,11 @@
 <?php
 /** JigoshopAtos **/
 
+// Exit if accessed directly
+if (false === defined('ABSPATH')) {
+	exit;
+}
+
 add_shortcode( 'jigoshop_atos_automatic_response', 'jigoshop_atos_automatic_response' );
 
 function jigoshop_atos_automatic_response( $atts ) {
